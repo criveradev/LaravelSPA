@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\NoteController;
+use App\Http\Controllers\PageController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -14,11 +16,10 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
-});
+Route::get('/dashboard',[PageController::class,'Dashboard'])
+    ->middleware('auth:sanctum')
+    ->name('dashboard');
+
+#Creamos una ruta de recursos para que genere las 7 rutas del CRUD
+Route::resource('notes',NoteController::class)
+    ->middleware('auth:sanctum');
