@@ -32,7 +32,7 @@ class NoteController extends Controller
     #Muestra el recurso especificado.
     public function show(Note $note)
     {
-        //
+        return Inertia::render('Notes/show', compact('note'));
     }
 
     #Muestra el formulario para editar el recurso especificado.
