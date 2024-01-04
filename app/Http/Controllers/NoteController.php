@@ -20,7 +20,7 @@ class NoteController extends Controller
     #Mostrar el formulario para crear un nuevo recurso.
     public function create()
     {
-        //
+        return Inertia::render('Notes/Create');
     }
 
     #Almacene un recurso recién creado en el almacenamiento.
