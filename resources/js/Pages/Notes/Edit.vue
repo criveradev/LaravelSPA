@@ -7,6 +7,9 @@ const form = useForm({
     excerpt:props.note.excerpt,
     content:props.note.content
 });
+const submit = () => {
+    form.put(route('notes.update',props.note.id), form);
+};
 </script>
 
 <template>
@@ -28,7 +31,7 @@ const form = useForm({
                     </div>
                     <div class="md:col-span-2 mt-5 md:mt-0">
                         <div class="shadow bg-white md:rounded-md p-4">
-                            <form>
+                            <form @submit.prevent="submit">
                                 <label class="block font-medium text-sm text-gray-700">
                                     Resumen
                                 </label>
