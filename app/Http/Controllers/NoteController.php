@@ -9,10 +9,12 @@ use Inertia\Inertia;
 class NoteController extends Controller
 {
     #Mostrar una lista del recurso.
-    public function index()
+    public function index(Request $request)
     {
         return Inertia::render('Notes/Index',[
-            'notes' => Note::latest()->get()
+            'notes' => Note::latest()
+            ->where('excerpt','LIKE',"%$request->q%")
+            ->get()
         ]);
     }
 
