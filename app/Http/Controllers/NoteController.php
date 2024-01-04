@@ -11,7 +11,7 @@ class NoteController extends Controller
     #Mostrar una lista del recurso.
     public function index()
     {
-        return Inertia::render('Notes/index',[
+        return Inertia::render('Notes/Index',[
             #Creamos una consulta, para mostrar las ultimas notas
             'notes' => Note::latest()->get()
         ]);
@@ -32,13 +32,13 @@ class NoteController extends Controller
     #Muestra el recurso especificado.
     public function show(Note $note)
     {
-        return Inertia::render('Notes/show', compact('note'));
+        return Inertia::render('Notes/Show', compact('note'));
     }
 
     #Muestra el formulario para editar el recurso especificado.
     public function edit(Note $note)
     {
-        //
+        return Inertia::render('Notes/Edit', compact('note'));
     }
 
     #Actualice el recurso especificado en el almacenamiento.
