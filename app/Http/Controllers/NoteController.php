@@ -12,7 +12,6 @@ class NoteController extends Controller
     public function index()
     {
         return Inertia::render('Notes/Index',[
-            #Creamos una consulta, para mostrar las ultimas notas
             'notes' => Note::latest()->get()
         ]);
     }
@@ -26,7 +25,13 @@ class NoteController extends Controller
     #Almacene un recurso recién creado en el almacenamiento.
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'excerpt' => 'required',
+            'content' => 'required'
+        ]);
+        $note = Note::create($request->all());
+
+        return redirect()->route('notes.edit',$note->id);
     }
 
     #Muestra el recurso especificado.
@@ -57,6 +62,7 @@ class NoteController extends Controller
     #Elimine el recurso especificado del almacenamiento.
     public function destroy(Note $note)
     {
-        //
+        $note->delete();
+        return redirect()->route('notes.index');
     }
 }

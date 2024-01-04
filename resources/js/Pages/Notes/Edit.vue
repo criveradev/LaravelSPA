@@ -2,14 +2,19 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { useForm } from '@inertiajs/vue3';
 
-const props=defineProps({note: Object});
+const props = defineProps({ note: Object });
 const form = useForm({
-    excerpt:props.note.excerpt,
-    content:props.note.content
+    excerpt: props.note.excerpt,
+    content: props.note.content
 });
 const submit = () => {
-    form.put(route('notes.update',props.note.id), form);
+    form.put(route('notes.update', props.note.id), form);
 };
+const destroy = () => {
+        if(confirm('Desea Eliminar?')) {
+            form.delete(route('notes.destroy', props.note.id));
+        }
+    };
 </script>
 
 <template>
@@ -40,14 +45,16 @@ const submit = () => {
                                 <label class="block font-medium text-sm text-gray-700">
                                     Contenido
                                 </label>
-                                <textarea class="form-input w-full rounded-md shadow-sm" v-model="form.content" rows="8"></textarea>
-                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">Editar</button>
-
+                                <textarea class="form-input w-full rounded-md shadow-sm" v-model="form.content"
+                                    rows="8"></textarea>
+                                <button
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">Editar</button>
+                                <hr class="my-6">
+                                <a href="#" @click.prevent="destroy">Eliminar Nota</a>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </AppLayout>
-</template>
+    </AppLayout></template>
